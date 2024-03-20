@@ -1,0 +1,117 @@
+import { createSlice } from "@reduxjs/toolkit";
+
+export const deletePreReducer = createSlice(
+    { name:'ManiPre',
+       initialState:{
+        isCDeleted:false,
+        isPDeleted:false,
+        isCarDeleted:false,
+        cloading:false,
+        cerror:null, 
+        ploading:false,
+        perror:null,
+        carloading:false,
+        carerror:null 
+       },
+       reducers:{
+        DELETE_CATAGORY_REQUEST(state){
+        return{
+            ...state,
+            cloading:true
+            };
+          },
+        DELETE_CATAGORY_SUCCESS(state,action){
+            return{
+            ...state,
+            cloading:false,
+            isCDeleted:action.payload.success
+            }
+          },
+        DELETE_CATAGORY_RESET(state,action){
+            return{
+              ...state,
+              isCDeleted:false,
+            }
+           
+          },
+        DELETE_CATAGORY_FAIL(state,action){
+            return{
+            cloading:false,
+            cerror:action.payload
+            }
+          },
+          CLEAR_DCERRORS:(state)=>{
+            return{
+            ...state,
+            cerror:null
+            }
+          },
+          DELETE_PINCODE_REQUEST(state){
+            return{
+                ...state,
+                ploading:true
+                };
+              },
+            DELETE_PINCODE_SUCCESS(state,action){
+                return{
+                ...state,
+                ploading:false,
+                isPDeleted:action.payload.success
+                }
+              },
+            DELETE_PINCODE_RESET(state,action){
+                return{
+                  ...state,
+                  isPDeleted:false,
+                }
+               
+              },
+            DELETE_PINCODE_FAIL(state,action){
+                return{
+                ploading:false,
+                error:action.payload
+                }
+              },
+              CLEAR_DPERRORS:(state)=>{
+                return{
+                ...state,
+                perror:null
+                }
+              },
+              
+          DELETE_CAROUSEL_REQUEST(state){
+            return{
+                ...state,
+                carloading:true
+                };
+              },
+            DELETE_CAROUSEL_SUCCESS(state,action){
+                return{
+                ...state,
+                carloading:false,
+                isCarDeleted:action.payload.success
+                }
+              },
+            DELETE_CAROUSEL_RESET(state,action){
+                return{
+                  ...state,
+                  isCarDeleted:false,
+                }
+               
+              },
+            DELETE_CAROUSEL_FAIL(state,action){
+                return{
+                carloading:false,
+                carerror:action.payload
+                }
+              },
+              CLEAR_DCARERRORS:(state)=>{
+                return{
+                ...state,
+                carerror:null
+                }
+              }
+        }
+    })
+        export const {DELETE_CATAGORY_FAIL,DELETE_CATAGORY_REQUEST,DELETE_CATAGORY_SUCCESS,DELETE_CATAGORY_RESET,CLEAR_DCERRORS,DELETE_PINCODE_FAIL,DELETE_PINCODE_REQUEST,DELETE_PINCODE_SUCCESS,DELETE_PINCODE_RESET,CLEAR_DPERRORS,DELETE_CAROUSEL_FAIL,DELETE_CAROUSEL_REQUEST,DELETE_CAROUSEL_SUCCESS,DELETE_CAROUSEL_RESET,CLEAR_DCARERRORS}=deletePreReducer.actions
+        export default deletePreReducer.reducer
