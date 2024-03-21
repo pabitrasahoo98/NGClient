@@ -211,7 +211,7 @@ const UpdateProduct = ({role}) => {
             <div>
          <LocalOfferIcon />
          <select value={dod} onChange={(e) => setDod(e.target.value)}>
-           <option value="">Set Deals of the Day</option>
+           <option value="">Set Blockbuster Deals</option>
            <option value="true">True</option>
            <option value="false">False</option>
          </select>

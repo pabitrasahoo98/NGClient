@@ -316,7 +316,7 @@ async (dispatch) => {
 
   try {
       dispatch(UPDATE_CATAGORY_REQUEST())
-      const config={withCredentials:true}
+      const config={headers:{"Content-Type":"application/json"},withCredentials:true}
       const {data}=await axios.put(`https://ng-server.vercel.app/api/v1/admin/manipulatecatagory/${id}`,catagoryData,config);
       dispatch(UPDATE_CATAGORY_SUCCESS(data.success));
       
@@ -338,7 +338,7 @@ async (dispatch) => {
 
   try {
       dispatch(UPDATE_PINCODE_REQUEST())
-      const config={withCredentials:true}
+      const config={headers:{"Content-Type":"application/json"},withCredentials:true}
       const {data}=await axios.put(`https://ng-server.vercel.app/api/v1/admin/manipulatepincodes/${id}`,pincodeData,config);
       dispatch(UPDATE_PINCODE_SUCCESS(data.success));
       
@@ -362,7 +362,7 @@ async (dispatch) => {
   try {
 
       dispatch(UPDATE_CAROUSEL_REQUEST())
-      const config={withCredentials:true}
+      const config={headers:{"Content-Type":"application/json"},withCredentials:true}
       const {data}=await axios.put(`https://ng-server.vercel.app/api/v1/admin/manipulatecarousel/${id}`,carouselData,config);
       dispatch(UPDATE_CAROUSEL_SUCCESS(data.success));
       
