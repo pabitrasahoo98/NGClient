@@ -10,7 +10,7 @@ const Logout = () => {
     useEffect(() => {
     dispatch(logout());
     navigate("/");
-    window.location.reload();
+    //window.location.reload();
     }, [dispatch,navigate])
     
   return (
