@@ -9,6 +9,7 @@ const Logout = () => {
     const navigate=useNavigate();
     useEffect(() => {
     dispatch(logout());
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     navigate("/");
     //window.location.reload();
     }, [dispatch,navigate])
