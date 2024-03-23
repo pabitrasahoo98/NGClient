@@ -11,7 +11,7 @@ const Logout = () => {
     dispatch(logout());
 
     navigate("/");
-    //window.location.reload();
+    document.cookie="token=;expires=Thu,01 jan 1970 00:00:00 UTC;secure=true;path=/;"
     }, [dispatch,navigate])
     
   return (
