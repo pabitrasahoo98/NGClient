@@ -81,7 +81,7 @@ export const loadUser =() =>
   async (dispatch) => {
     try {
       let link = `https://ng-server.vercel.app/api/v1/logout`;
-      await axios.get(link,{withCredentials:true});
+      await axios.post(link,{withCredentials:true});
 
       dispatch(LOGOUT_SUCCESS());
       
