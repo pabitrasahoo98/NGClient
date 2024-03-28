@@ -6,12 +6,15 @@ import Loader from '../components/layout/Loader';
 import { getProduct } from '../actions/productAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import Pagination from 'react-js-pagination';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Button, MenuItem, Select, Typography } from '@mui/material';
 import Swal from 'sweetalert2';
+import ResponsivePagination from 'react-responsive-pagination';
+import { dropEllipsis, dropNav, combine } from 'react-responsive-pagination/narrowBehaviour';
+import 'bootstrap/dist/css/bootstrap.css';
+
 
 const Products = () => {
   const targetRef = useRef(null);
@@ -59,8 +62,8 @@ const Products = () => {
     dispatch(getProduct(keyword, currentPage, category,sortOption));
   }, [dispatch, keyword, currentPage, category,sortOption,error]);
 
-  const setCurrentPageNo = (e) => {
-    setCurrentPage(e);
+  const setCurrentPageNo = (page) => {
+    setCurrentPage(page);
   };
   
   const handleSortChange = (event) => {
@@ -84,7 +87,8 @@ const Products = () => {
             <div className="product-list">
               <Slider {...settings}>
                 {catalog && catalog.map((item, key) => (
-                  <Button   sx={{
+                  <Button
+                  sx={{
                     fontSize: '16px', // Default font size
                     width: '150px', // Add a fixed width to prevent overlapping
                     mr: '10px', // Add margin-right between buttons
@@ -93,7 +97,9 @@ const Products = () => {
                       fontSize: '9px', // Decrease font size for smaller screens
                       width: '120px', // Decrease width for smaller screens
                     },
-                  }} key={key} onClick={() => handleCategoryChange(item.catagory)}>{item.catagory}</Button>
+                  }}
+                 
+               key={key} onClick={() => handleCategoryChange(item.catagory)}>{item.catagory}</Button>
                 ))}
               </Slider>
             </div>
@@ -128,39 +134,23 @@ const Products = () => {
 
             <div>
             {
-  category ? (currentPage <= Math.ceil(filteredProductsCount / resultPerPage)) && (
+  (category) ? (currentPage <= Math.ceil(filteredProductsCount / resultPerPage)) && (
     <div className="paginationBox">
-      <Pagination
-        activePage={currentPage}
-        itemsCountPerPage={resultPerPage}
-        totalItemsCount={filteredProductsCount}
-        onChange={setCurrentPageNo}
-        nextPageText="Next"
-        prevPageText="Prev"
-        firstPageText="1st"
-        lastPageText="Last"
-        itemClass="page-item"
-        linkClass="page-link"
-        activeClass="pageItemActive"
-        activeLinkClass="pageLinkActive"
-      />
-    </div>
+     <ResponsivePagination
+                  narrowBehaviour={combine(dropNav, dropEllipsis)}
+                  current={currentPage}
+                  total={Math.ceil(filteredProductsCount / resultPerPage)}
+                  onPageChange={page => setCurrentPageNo(page)}
+                />
+    </div> 
   ) : (resultPerPage < productsCount) && (
     <div className="paginationBox">
-      <Pagination
-        activePage={currentPage}
-        itemsCountPerPage={resultPerPage}
-        totalItemsCount={productsCount}
-        onChange={setCurrentPageNo}
-        nextPageText="Next"
-        prevPageText="Prev"
-        firstPageText="1st"
-        lastPageText="Last"
-        itemClass="page-item"
-        linkClass="page-link"
-        activeClass="pageItemActive"
-        activeLinkClass="pageLinkActive"
-      />
+      <ResponsivePagination
+                  narrowBehaviour={combine(dropNav, dropEllipsis)}
+                  current={currentPage}
+                  total={Math.ceil(productsCount / resultPerPage) }
+                  onPageChange={page => setCurrentPageNo(page)}
+                />
     </div>
   )
 }</div>
