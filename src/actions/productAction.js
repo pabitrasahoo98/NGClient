@@ -6,14 +6,22 @@ import { ADD_PRODUCT_FAIL,ADD_PRODUCT_SUCCESS,ADD_PRODUCT_REQUEST,CLEAR_NPERRORS
 import { CLEAR_DPERRORS, CLEAR_UPERRORS, DELETE_PRODUCT_FAIL, DELETE_PRODUCT_REQUEST, DELETE_PRODUCT_SUCCESS, UPDATE_PRODUCT_FAIL, UPDATE_PRODUCT_REQUEST, UPDATE_PRODUCT_SUCCESS } from "../reducers/manipulateProductReducer";
  
 //get all product
-export const getProduct =(keyword="",currentPage=1,category,sortOption) =>
+export const getProduct = (keyword = "", currentPage = 1, category, sortOption, subcatagory, brand) =>
   async (dispatch) => {
     try {
       dispatch(ALL_PRODUCT_REQUEST());
       let link = `https://ng-server.vercel.app/api/v1/products?keyword=${keyword}&page=${currentPage}&sort=${sortOption}`;
 
-     if (category) {
-        link = `https://ng-server.vercel.app/api/v1/products?keyword=${keyword}&page=${currentPage}&catagory=${category}&sort=${sortOption}`;
+      if (category) {
+        link = `https://ng-server.vercel.app/api/v1/products?keyword=${keyword}&page=${currentPage}&sort=${sortOption}&catagory=${category}`;
+      }
+
+      if (subcatagory) {
+        link += `&subcatagory=${subcatagory}`;
+      }
+
+      if (brand) {
+        link += `&brand=${brand}`;
       }
 
       const { data } = await axios.get(link);
@@ -52,12 +60,18 @@ async (dispatch) => {
 
 
 
-  export const getSProducts =(category) =>
+  //get similar products
+
+
+
+  export const getSProducts =(category,subcategory) =>
   async (dispatch) => {
     try {
       dispatch(SPRODUCT_REQUEST());
-  
       let link = `https://ng-server.vercel.app/api/v1/products?catagory=${category}`;
+      if (subcategory) {
+        link += `&subcatagory=${subcategory}`;
+      }
   
       const { data } = await axios.get(link);
   
@@ -67,7 +81,7 @@ async (dispatch) => {
       dispatch(SPRODUCT_FAIL(error.response.data.message));
     }
   };
-  //clear product Errors
+  //clear similar product Errors
   export const clearSProductErrors =() =>
   async (dispatch) => {
     dispatch( CLEAR_SPERRORS())
