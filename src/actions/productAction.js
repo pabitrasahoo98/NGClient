@@ -64,7 +64,7 @@ async (dispatch) => {
 
 
 
-  export const getSProducts =(category,subcategory) =>
+  export const getSProducts =(category,subcategory="") =>
   async (dispatch) => {
     try {
       dispatch(SPRODUCT_REQUEST());
